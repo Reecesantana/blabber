@@ -4,9 +4,9 @@ import Head from "next/head";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
-import { LoadingSpinner } from "y/components/loadingSpinner";
+import { LoadingSpinner } from "src/components/loadingSpinner";
 
-import { api, RouterOutputs } from "y/utils/api";
+import { api, RouterOutputs } from "src/utils/api";
 import { useState } from "react";
 
 dayjs.extend(relativeTime);
