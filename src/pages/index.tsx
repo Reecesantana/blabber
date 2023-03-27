@@ -7,12 +7,24 @@ import Image from "next/image";
 import { LoadingSpinner } from "y/components/loadingSpinner";
 
 import { api, RouterOutputs } from "y/utils/api";
+import { useState } from "react";
 
 dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
-  console.log(user?.id);
+
+  const [input, setInput] = useState("")
+
+  const ctx = api.useContext()
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("")
+      ctx.posts.getAll.invalidate()
+    }
+  })
+  
 
   if (!user) return null;
 
@@ -29,7 +41,11 @@ const CreatePostWizard = () => {
         type="text"
         placeholder="Post Something!"
         className="grow bg-transparent outline-none"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        disabled={isPosting}
       />
+      <button onClick={() => mutate({ content: input })} className="p-2 text-2xl">+</button>
     </div>
   );
 };
@@ -51,7 +67,7 @@ const PostView = (props: PostWithUser) => {
           <span className="font-semibold">{`>${author.username}`}</span>{" "}
           <span className="font-light">{`. ${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
-        <span className="align-middle">{post.content}</span>
+        <span className="text-2xl">{post.content}</span>
       </div>
     </div>
   );
@@ -66,7 +82,7 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col">
-    {data?.map((fullPost) => (
+    {data.map((fullPost) => (
       <PostView {...fullPost} key={fullPost.post.id} />
     ))}
   </div>
