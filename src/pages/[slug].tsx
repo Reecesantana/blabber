@@ -1,16 +1,30 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { api } from "~/utils/api";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import { appRouter } from "~/server/api/root";
-import { prisma } from "~/server/db";
-import superjson from "superjson";
+import {generateSSGHelper} from "~/server/helpers/ssgHelper"
 import { PageLayout } from "~/components/layout";
 import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { LoadingPage } from "~/components/loadingSpinner";
+import { PostView } from "~/components/postView";
 
 dayjs.extend(relativeTime);
+
+const ProfileFeed = (props: {userId: string}) => {
+  const {data, isLoading} = api.posts.getPostByUser.useQuery({userId: props.userId})
+
+  if (isLoading) return <LoadingPage />
+
+  if (!data || data.length === 0) return <div>This "user" has nothing to say. They are vibing in their own lane.</div>
+
+  return <div>
+    {data.map((fullPost) =>(
+      <PostView {...fullPost} key={fullPost.post.id}/>
+    )
+    )}
+  </div>
+}
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data } = api.profile.getUserByUsername.useQuery({
@@ -36,18 +50,16 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
           <div className="h-16"></div>
           <div className="px-4 text-2xl">{`>${data.username}`}</div>
           <div className="px-4 text-xs text-slate-600">Joined: {dayjs(data.joined).format("DD/MM/YY")}</div>
-          
+          <div className="border-b border-slate-800"/>
+          <ProfileFeed userId={data.id}/>
       </PageLayout>
     </>
   );
 };
 
+
 export const getStaticProps: GetStaticProps = async (context) => {
-  const ssg = createProxySSGHelpers({
-    router: appRouter,
-    ctx: { prisma, userId: null },
-    transformer: superjson, // optional - adds superjson serialization
-  });
+  const ssg = generateSSGHelper()
 
   const slug = context.params?.slug;
 
