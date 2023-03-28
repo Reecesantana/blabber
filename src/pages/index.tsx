@@ -74,7 +74,7 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 const PostView = (props: PostWithUser) => {
   const { post, author } = props;
   return (
-    <div key={post.id} className="flex gap-3 border-b">
+    <div key={post.id} className="flex gap-3 border border-slate-200 rounded-md shadow-md">
       <Image
         src={author?.profilePicture}
         alt={`${author.username} Profile Image`}
@@ -84,7 +84,7 @@ const PostView = (props: PostWithUser) => {
       />
       <div className="flex flex-col text-clip">
         <div className="text-slate-300">
-         <Link href={`/${author.username}`}><span className="font-semibold">{`>${author.username}`}</span>{" "}</Link>
+         <Link href={`/${author.username}`}><span className="font-semibold hover:text-emerald-800">{`>${author.username}`}</span></Link>
           <span className="font-light">{`. ${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
         <Link href={`/post/${post.id}`}><span className="text-2xl">{post.content}</span></Link>
@@ -101,7 +101,7 @@ const Feed = () => {
   if(!data) return <div>Something Went Wrong!!!</div>
 
   return (
-    <div className="flex flex-col">
+    <div className="pt-3 flex flex-col gap-3">
     {data.map((fullPost) => (
       <PostView {...fullPost} key={fullPost.post.id} />
     ))}
@@ -120,9 +120,9 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <main className="flex h-screen justify-center">
-        <div className="h-full w-full border-x border-slate-200 md:max-w-2xl">
-          <div className="border-b">
+      <main className="overflow-none flex h-screen justify-center">
+        <div className="flex h-full w-full flex-col md:max-w-2xl">
+          <div className="border border-slate-200 rounded shadow-lg">
             {!isSignedIn && <SignInButton />}
             {isSignedIn && <CreatePostWizard />}
           </div>
