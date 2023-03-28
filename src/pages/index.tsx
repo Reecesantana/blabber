@@ -9,6 +9,7 @@ import type { RouterOutputs } from "~/utils/api";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import { PageLayout } from "~/components/layout";
 
 dayjs.extend(relativeTime);
 
@@ -74,7 +75,7 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 const PostView = (props: PostWithUser) => {
   const { post, author } = props;
   return (
-    <div key={post.id} className="flex gap-3 border border-slate-200 rounded-md shadow-md">
+    <div key={post.id} className="flex border-b border-slate-800 shadow-sm">
       <Image
         src={author?.profilePicture}
         alt={`${author.username} Profile Image`}
@@ -101,7 +102,7 @@ const Feed = () => {
   if(!data) return <div>Something Went Wrong!!!</div>
 
   return (
-    <div className="pt-3 flex flex-col gap-3">
+    <div className="">
     {data.map((fullPost) => (
       <PostView {...fullPost} key={fullPost.post.id} />
     ))}
@@ -120,15 +121,13 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <main className="overflow-none flex h-screen justify-center">
-        <div className="flex h-full w-full flex-col md:max-w-2xl">
-          <div className="border border-slate-200 rounded shadow-lg">
-            {!isSignedIn && <SignInButton />}
-            {isSignedIn && <CreatePostWizard />}
-          </div>
+      <PageLayout>
+        <div>
+            {!isSignedIn && (<div className="flex justify-center border border-slate-200 rounded-md p-10 hover:bg-slate-200 hover:text-slate-900"><SignInButton /></div>)}
+            {isSignedIn && (<div className="shadow-sm border border-slate-800"><CreatePostWizard /></div>)}
+            </div>
          <Feed />
-        </div>
-      </main>
+         </PageLayout>
     </>
   );
 };

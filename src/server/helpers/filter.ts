@@ -4,5 +4,8 @@ export const filterUserForClient = (user: User) => {
       id: user.id,
       username: user.username,
       profilePicture: user.profileImageUrl,
+      joined: user.createdAt,
+      birthday: user.birthday,
+      lastOnline: user.lastSignInAt,
     };
   };
