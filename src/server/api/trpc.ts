@@ -16,7 +16,7 @@
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 
-import { prisma } from "y/server/db";
+import { prisma } from "~/server/db";
 
 /**
  * This is the actual context you will use in your router. It will be used to process every request
