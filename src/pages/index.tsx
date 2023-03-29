@@ -7,6 +7,9 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { PageLayout } from "~/components/layout";
 import { PostView } from "~/components/postView";
+import { FaPlusCircle, FaHome } from "react-icons/fa";
+
+
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -60,7 +63,7 @@ const CreatePostWizard = () => {
           }
         }}
       />
-      {input !== "" && !isPosting && (<button onClick={() => mutate({ content: input })} className="p-2 text-2xl">+</button>)}
+      {input !== "" && !isPosting && (<button onClick={() => mutate({ content: input })} className="px-2 hover:text-slate-500"><FaPlusCircle size={20}/></button>)}
       {isPosting && <div className="justify-center flex items-center px-2"><LoadingSpinner size={20}/></div>}
     </div>
   );
