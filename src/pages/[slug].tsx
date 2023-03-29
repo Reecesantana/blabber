@@ -35,7 +35,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   return (
     <>
       <Head>
-        <title>{data.username ?? data.externalUsername}</title>
+        <title>{data.username ?? data.externalUsername ?? ""}</title>
       </Head>
       <PageLayout>
         <div className="relative bg-slate-700 h-48">
@@ -48,7 +48,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
           ></Image>
           </div>
           <div className="h-16"></div>
-          <div className="px-4 text-2xl">{`&gt${data.username ?? data.externalUsername}`}</div>
+          <div className="px-4 text-2xl">{`&gt${data.username ?? data.externalUsername ?? ""}`}</div>
           <div className="px-4 text-xs text-slate-600">Joined: {dayjs(data.joined).format("DD/MM/YY")}</div>
           <div className="border-b border-slate-800"/>
           <ProfileFeed userId={data.id}/>
