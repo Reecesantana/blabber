@@ -16,7 +16,7 @@ const ProfileFeed = (props: {userId: string}) => {
 
   if (isLoading) return <LoadingPage />
 
-  if (!data || data.length === 0) return <div>This "user" has nothing to say. They are vibing in their own lane.</div>
+  if (!data || data.length === 0) return <div>This user has nothing to say. They are vibing in their own lane.</div>
 
   return <div>
     {data.map((fullPost) =>(
@@ -54,7 +54,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
           <ProfileFeed userId={data.id}/>
       </PageLayout>
     </>
-  )
+  );
 };
 
 
