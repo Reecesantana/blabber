@@ -31,24 +31,24 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
     username,
   });
 
-  if (!data) return <div>404</div>;
+  if (!data) return <div>404</div>
   return (
     <>
       <Head>
-        <title>{data.username!}</title>
+        <title>{data.username}</title>
       </Head>
       <PageLayout>
         <div className="relative bg-slate-700 h-48">
           <Image
             src={`${data.profilePicture}`}
-            alt={`${data.username! ?? ""}'s Profile Image`}
+            alt={`${data.username ?? ""}'s Profile Image`}
             className="rounded-full absolute -m-16 bottom-0 left-0 ml-4 border-slate-900 border-4"
             width={128}
             height={128}
           ></Image>
           </div>
           <div className="h-16"></div>
-          <div className="px-4 text-2xl">{`>${data.username!}`}</div>
+          <div className="px-4 text-2xl">{`>${data.username}`}</div>
           <div className="px-4 text-xs text-slate-600">Joined: {dayjs(data.joined).format("DD/MM/YY")}</div>
           <div className="border-b border-slate-800"/>
           <ProfileFeed userId={data.id}/>
