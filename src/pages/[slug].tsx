@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { LoadingPage } from "~/components/loadingSpinner";
 import { PostView } from "~/components/postView";
+import { DirectoryLayout } from "~/components/directory";
 
 dayjs.extend(relativeTime);
 
@@ -37,6 +38,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
       <Head>
         <title>{data.username ?? data.externalUsername ?? ""}</title>
       </Head>
+      <DirectoryLayout/>
       <PageLayout>
         <div className="relative bg-slate-700 h-48">
           <Image

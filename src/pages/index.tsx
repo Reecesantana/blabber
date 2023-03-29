@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import { PageLayout } from "~/components/layout";
 import { PostView } from "~/components/postView";
 import { FaPlusCircle } from "react-icons/fa";
+import { DirectoryLayout } from "~/components/directory";
 
 
 
@@ -97,6 +98,8 @@ const Home: NextPage = () => {
 
   return (
     <>
+    <DirectoryLayout>
+    </DirectoryLayout>
       <PageLayout>
         <div>
             {!isSignedIn && (<div className="flex justify-center border border-slate-200 rounded-md p-10 hover:bg-slate-200 hover:text-slate-900"><SignInButton /></div>)}
