@@ -7,5 +7,6 @@ export const filterUserForClient = (user: User) => {
       joined: user.createdAt,
       birthday: user.birthday,
       lastOnline: user.lastSignInAt,
+      externalUsername: user.externalAccounts.find((externalAccount) => externalAccount.provider === "oauth_github")?.username || null
     };
   };
