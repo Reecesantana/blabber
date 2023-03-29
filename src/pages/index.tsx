@@ -7,7 +7,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { PageLayout } from "~/components/layout";
 import { PostView } from "~/components/postView";
-import { FaPlusCircle, FaHome } from "react-icons/fa";
+import { FaPlusCircle } from "react-icons/fa";
 
 
 
