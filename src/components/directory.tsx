@@ -1,10 +1,8 @@
-import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import type { PropsWithChildren } from "react";
 import { FaHome, FaSearch, FaUser } from "react-icons/fa";
 
 export const DirectoryLayout = (props: PropsWithChildren) => {
-  const { user } = useUser();
 
   return (
     <main className="float-left flex h-screen">
@@ -16,13 +14,6 @@ export const DirectoryLayout = (props: PropsWithChildren) => {
           >
             <FaHome />
             Home
-          </Link>
-          <Link
-            href={"/"}
-            className="flex gap-2 p-5 hover:bg-slate-200 hover:text-slate-900"
-          >
-            <FaSearch />
-            Search
           </Link>
           <Link
             href={"/profile"}
